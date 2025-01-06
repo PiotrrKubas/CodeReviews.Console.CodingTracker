@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodingTracker.PiotrrKubas
+﻿namespace CodingTracker.PiotrrKubas
 {
     internal class Enums
     {
+        internal enum Selection
+        {
+            StartSession,
+            EnterManually,
+            Report
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using Dapper;
 
 namespace CodingTracker.PiotrrKubas
 {
@@ -12,12 +13,15 @@ namespace CodingTracker.PiotrrKubas
                 {
                     connection.Open();
 
-                    using var command = new SqliteCommand(@"CREATE TABLE IF NOT EXISTS coding_tracker(
-                                                    id INTEGER PRIMARY KEY,
-                                                    session_start_time TEXT,
-                                                    session_end_time TEXT,
-                                                    session_duration_minutes INTEGER)", connection);
-                    command.ExecuteNonQuery();
+                    var createTableQuery = @"
+                    CREATE TABLE IF NOT EXISTS coding_tracker (
+                        id INTEGER PRIMARY KEY,
+                        session_start_time TEXT,
+                        session_end_time TEXT,
+                        session_duration_minutes INTEGER
+                    )";
+                    
+                    connection.Execute(createTableQuery);
                 }
             }
             catch (Exception error)
