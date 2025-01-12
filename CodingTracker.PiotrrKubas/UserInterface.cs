@@ -38,18 +38,40 @@ namespace CodingTracker.PiotrrKubas
         internal void StartSession()
         {
             Console.WriteLine("Session start");
-            DateTime sessionStart = DateTime.Now;
-            Console.WriteLine("Press any key to stop coding session");
-            Console.ReadKey();
+            DateTime sessionStart = DateTime.Now;          
+
+            while (!PromptToStopSession())
+            {
+                Console.Clear();
+            }
+
             DateTime sessionEnd = DateTime.Now;
             TimeSpan duration = sessionEnd - sessionStart;
-            Console.WriteLine(duration);
+            Console.WriteLine(duration);            
+
             Console.ReadKey();
         }
+
+        private bool PromptToStopSession()
+        {
+            return AnsiConsole.Prompt(
+            new TextPrompt<bool>("Stop coding session?")
+                .AddChoice(true)
+                .AddChoice(false)
+                .WithConverter(choice => choice ? "y" : "n"));
+        }
+
 
         internal void ManualEntry()
         {
             Console.WriteLine("Manual Entry");
+            DateTime sessionStart;
+            DateTime sessionEnd;
+
+            sessionStart = DateTime.Parse(Console.ReadLine());
+            sessionEnd = DateTime.Parse(Console.ReadLine());
+
+            TimeSpan duration = sessionEnd - sessionStart;
         }
 
         internal void Report()
