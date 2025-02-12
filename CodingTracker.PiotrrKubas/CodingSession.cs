@@ -3,8 +3,8 @@
     internal class CodingSession
     {
         public int Id { get; set; }
-        public DateTime SessionStart { get; set; }
-        public DateTime SessionEnd { get; set; }
-        public TimeSpan Duration { get; set; }
+        public string session_start_time { get; set; }
+        public string session_end_time { get; set; }
+        public string session_duration { get; set; }
     }
 }

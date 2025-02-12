@@ -6,7 +6,7 @@
         {
             UserInterface userInterface = new UserInterface();
             
-            DatabaseConnection.Connection();
+            DatabaseOperations.Connection();
             userInterface.MainMenu();
         }
     }

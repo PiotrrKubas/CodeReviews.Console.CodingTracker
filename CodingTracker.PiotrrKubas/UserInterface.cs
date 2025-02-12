@@ -5,6 +5,7 @@ namespace CodingTracker.PiotrrKubas
 {
     internal class UserInterface
     {
+        UserInput input = new();
         internal void MainMenu()
         {
             while (true)
@@ -46,8 +47,8 @@ namespace CodingTracker.PiotrrKubas
             }
 
             DateTime sessionEnd = DateTime.Now;
-            TimeSpan duration = sessionEnd - sessionStart;
-            Console.WriteLine(duration);            
+
+            DatabaseOperations.AddRecord(sessionStart, sessionEnd);
 
             Console.ReadKey();
         }
@@ -61,22 +62,22 @@ namespace CodingTracker.PiotrrKubas
                 .WithConverter(choice => choice ? "y" : "n"));
         }
 
-
         internal void ManualEntry()
         {
             Console.WriteLine("Manual Entry");
             DateTime sessionStart;
-            DateTime sessionEnd;
+            DateTime sessionEnd;           
 
-            sessionStart = DateTime.Parse(Console.ReadLine());
-            sessionEnd = DateTime.Parse(Console.ReadLine());
+            sessionStart = input.DateInput("Enter start of the session");
+            sessionEnd = input.DateInput("Enter end of the session");
 
-            TimeSpan duration = sessionEnd - sessionStart;
+            DatabaseOperations.AddRecord(sessionStart, sessionEnd);
         }
 
         internal void Report()
         {
-            Console.WriteLine("Report printing");
+            DatabaseOperations.PrintReport();
+            Console.ReadLine();
         }
     }
 }
