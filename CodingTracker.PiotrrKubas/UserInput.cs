@@ -26,7 +26,7 @@ namespace CodingTracker.PiotrrKubas
             do
             {
                 dateUserInput = Input(prompt + " using [blue]dd.mm.yyyy HH:mm[/] format\n");
-            } while (!DateTime.TryParseExact(dateUserInput, timeFormat, culture, DateTimeStyles.None, out result));
+            } while (!DateTime.TryParseExact(dateUserInput, timeFormat, culture, DateTimeStyles.None, out result) || result > DateTime.Now);
 
             return result;
         }

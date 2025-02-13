@@ -1,4 +1,5 @@
 ﻿using Spectre.Console;
+using System.Diagnostics;
 using static CodingTracker.PiotrrKubas.Enums;
 
 namespace CodingTracker.PiotrrKubas
@@ -39,10 +40,11 @@ namespace CodingTracker.PiotrrKubas
         internal void StartSession()
         {
             Console.WriteLine("Session start");
-            DateTime sessionStart = DateTime.Now;          
-
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
             while (!PromptToStopSession())
             {
+                Console.WriteLine(stopwatch.);
                 Console.Clear();
             }
 
