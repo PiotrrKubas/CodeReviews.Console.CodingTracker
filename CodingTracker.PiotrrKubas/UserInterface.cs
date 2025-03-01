@@ -36,20 +36,31 @@ namespace CodingTracker.PiotrrKubas
                 }
             }
         }
-        
         internal void StartSession()
         {
             Console.WriteLine("Session start");
+            DateTime sessionStart = DateTime.Now;
+
             Stopwatch stopwatch = new();
             stopwatch.Start();
+            CancellationTokenSource source = new();
+            CancellationToken token = source.Token;
+
+            Task.Run(() =>
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    Console.SetCursorPosition(0, 1);
+                    Console.Write($"Session Length: {stopwatch.Elapsed:g}   ");
+                }
+            }, token);
+
             while (!PromptToStopSession())
             {
-                Console.WriteLine(stopwatch.);
-                Console.Clear();
             }
-
+            source.Cancel();
+            stopwatch.Stop();
             DateTime sessionEnd = DateTime.Now;
-
             DatabaseOperations.AddRecord(sessionStart, sessionEnd);
 
             Console.ReadKey();
@@ -58,10 +69,9 @@ namespace CodingTracker.PiotrrKubas
         private bool PromptToStopSession()
         {
             return AnsiConsole.Prompt(
-            new TextPrompt<bool>("Stop coding session?")
-                .AddChoice(true)
-                .AddChoice(false)
-                .WithConverter(choice => choice ? "y" : "n"));
+            new SelectionPrompt<string>()
+            .Title("Stop coding session?")
+            .AddChoices("Yes", "No")) == "Yes";
         }
 
         internal void ManualEntry()

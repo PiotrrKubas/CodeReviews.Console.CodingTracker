@@ -62,16 +62,21 @@ class DatabaseOperations
         using (var connection = new SqliteConnection(connectionString))
         {
             connection.Open();
-
+            int denominator = 0;
+            TimeSpan totalSessionDuration = new();
             List<CodingSession> sessions = new();
             sessions = connection.Query<CodingSession>("SELECT * FROM coding_tracker").AsList();
 
             foreach (var session in sessions)
             {
-                table.AddRow(session.Id.ToString(), session.session_start_time, session.session_end_time, session.session_duration);               
+                table.AddRow(session.Id.ToString(), session.session_start_time, session.session_end_time, session.session_duration);
+                totalSessionDuration += TimeSpan.Parse(session.session_duration);
+                denominator++;
             }
 
             AnsiConsole.Write(table);
+            Console.WriteLine($"Total duration = {totalSessionDuration}");
+            Console.WriteLine($"Average duration = {totalSessionDuration/denominator}");
             Console.WriteLine("Press ENTER to continue");
         }
     }
