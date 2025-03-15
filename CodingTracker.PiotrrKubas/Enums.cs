@@ -6,7 +6,8 @@
         {
             StartSession,
             EnterManually,
-            Report
+            Report,
+            Goal
         }
     }
 }

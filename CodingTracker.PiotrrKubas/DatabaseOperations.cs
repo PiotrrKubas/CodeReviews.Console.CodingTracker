@@ -48,7 +48,7 @@ class DatabaseOperations
         }
     }
 
-    public static void PrintReport()
+    public static (Table, TimeSpan) GetTable()
     {
         var table = new Table();
         table.Title("Coding sessions");
@@ -56,8 +56,6 @@ class DatabaseOperations
         table.AddColumn("Session start date");
         table.AddColumn("Session end date");
         table.AddColumn("Session duration");
-
-
 
         using (var connection = new SqliteConnection(connectionString))
         {
@@ -74,14 +72,11 @@ class DatabaseOperations
                 denominator++;
             }
 
-            AnsiConsole.Write(table);
-            Console.WriteLine($"Total duration = {totalSessionDuration}");
-            Console.WriteLine($"Average duration = {totalSessionDuration/denominator}");
-            Console.WriteLine("Press ENTER to continue");
+            return (table, totalSessionDuration);
         }
     }
     public static void EditRecord()
     {
-        PrintReport();
+        GetTable();
     }
 }

@@ -31,6 +31,9 @@ namespace CodingTracker.PiotrrKubas
                     case Selection.Report:
                         Report();
                         break;
+                    case Selection.Goal:
+                        Console.WriteLine("Goal setup");
+                        break;
                     default:
                         break;
                 }
@@ -88,8 +91,21 @@ namespace CodingTracker.PiotrrKubas
 
         internal void Report()
         {
-            DatabaseOperations.PrintReport();
+            var table = DatabaseOperations.GetTable().Item1;
+            AnsiConsole.Write(table);
+            int denominator = table.Rows.Count;
+            TimeSpan totalSessionDuration = new();
+
+            totalSessionDuration = DatabaseOperations.GetTable().Item2;
+            Console.WriteLine($"Total duration = {totalSessionDuration}");
+            Console.WriteLine($"Average duration = {totalSessionDuration / denominator}");
+            Console.WriteLine("Press ENTER to continue");
             Console.ReadLine();
+        }
+
+        internal void Goal()
+        {
+
         }
     }
 }
