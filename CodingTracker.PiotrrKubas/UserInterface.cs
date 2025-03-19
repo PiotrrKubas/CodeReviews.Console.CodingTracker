@@ -32,12 +32,47 @@ namespace CodingTracker.PiotrrKubas
                         Report();
                         break;
                     case Selection.Goal:
-                        Console.WriteLine("Goal setup");
+                        GoalMenu();
                         break;
                     default:
                         break;
                 }
             }
+        }
+
+        internal void GoalMenu()
+        {
+            GoalActions goalActions = new();
+            Console.Clear();
+            var rule = new Rule();
+            AnsiConsole.Write(rule);
+
+            var actionChoice = AnsiConsole.Prompt
+                (new SelectionPrompt<GoalSelection>()
+                .Title("[yellow]MAIN MENU[/]")
+                .AddChoices(Enum.GetValues<GoalSelection>()));
+
+            switch (actionChoice)
+            {
+                case GoalSelection.SetGoal:
+                    goalActions.SetGoal();
+                    break;
+                case GoalSelection.ChangeGoal:
+                    goalActions.ChangeGoal();
+                    break;
+                case GoalSelection.GoalProgress:
+                    goalActions.GoalProgress();
+                    break;
+                case GoalSelection.GoalCancel:
+                    goalActions.GoalCancel();
+                    break;
+                case GoalSelection.MainMenu:
+                    MainMenu();
+                    break;
+                default:
+                    break;
+            }
+
         }
         internal void StartSession()
         {
@@ -103,9 +138,6 @@ namespace CodingTracker.PiotrrKubas
             Console.ReadLine();
         }
 
-        internal void Goal()
-        {
 
-        }
     }
 }

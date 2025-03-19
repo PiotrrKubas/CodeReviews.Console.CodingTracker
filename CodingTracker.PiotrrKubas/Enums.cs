@@ -9,5 +9,13 @@
             Report,
             Goal
         }
+        internal enum GoalSelection
+        {
+            SetGoal,
+            ChangeGoal,
+            GoalProgress,
+            GoalCancel,
+            MainMenu
+        }
     }
 }
