@@ -12,12 +12,11 @@ namespace CodingTracker.PiotrrKubas
             while (true)
             {
                 Console.Clear();
-                var rule = new Rule();
+                var rule = new Rule("[yellow]MAIN MENU[/]");
                 AnsiConsole.Write(rule);
 
                 var actionChoice = AnsiConsole.Prompt
                     (new SelectionPrompt<Selection>()
-                    .Title("[yellow]MAIN MENU[/]")
                     .AddChoices(Enum.GetValues<Selection>()));
 
                 switch (actionChoice)
@@ -42,14 +41,14 @@ namespace CodingTracker.PiotrrKubas
 
         internal void GoalMenu()
         {
+            Console.Clear();
             GoalActions goalActions = new();
             Console.Clear();
-            var rule = new Rule();
+            var rule = new Rule("[yellow]GOAL MENU[/]");
             AnsiConsole.Write(rule);
 
             var actionChoice = AnsiConsole.Prompt
                 (new SelectionPrompt<GoalSelection>()
-                .Title("[yellow]MAIN MENU[/]")
                 .AddChoices(Enum.GetValues<GoalSelection>()));
 
             switch (actionChoice)
@@ -76,6 +75,7 @@ namespace CodingTracker.PiotrrKubas
         }
         internal void StartSession()
         {
+            Console.Clear();
             Console.WriteLine("Session start");
             DateTime sessionStart = DateTime.Now;
 
@@ -114,6 +114,7 @@ namespace CodingTracker.PiotrrKubas
 
         internal void ManualEntry()
         {
+            Console.Clear();
             Console.WriteLine("Manual Entry");
             DateTime sessionStart;
             DateTime sessionEnd;           
@@ -126,6 +127,7 @@ namespace CodingTracker.PiotrrKubas
 
         internal void Report()
         {
+            Console.Clear();
             var table = DatabaseOperations.GetTable().Item1;
             AnsiConsole.Write(table);
             int denominator = table.Rows.Count;
@@ -137,7 +139,5 @@ namespace CodingTracker.PiotrrKubas
             Console.WriteLine("Press ENTER to continue");
             Console.ReadLine();
         }
-
-
     }
 }

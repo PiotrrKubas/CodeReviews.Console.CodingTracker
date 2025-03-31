@@ -2,7 +2,8 @@
 {
     class Goal
     {
-        DateTime deadlineDate;
+        DateTime goalStartDate;
+        DateTime goalEndDate;
         TimeSpan currentTimeSpentCoding;
         TimeSpan goal;
     }
