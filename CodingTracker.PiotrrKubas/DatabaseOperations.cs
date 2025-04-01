@@ -63,7 +63,7 @@ class DatabaseOperations
             int denominator = 0;
             TimeSpan totalSessionDuration = new();
             List<CodingSession> sessions = new();
-            sessions = connection.Query<CodingSession>("SELECT * FROM coding_tracker").AsList();
+            sessions = GetCodingSessionList();
 
             foreach (var session in sessions)
             {
@@ -75,6 +75,18 @@ class DatabaseOperations
             return (table, totalSessionDuration);
         }
     }
+    public static List<CodingSession> GetCodingSessionList()
+    {
+        using (var connection = new SqliteConnection(connectionString))
+        {
+            connection.Open();
+            List<CodingSession> sessions = new();
+            sessions = connection.Query<CodingSession>("SELECT * FROM coding_tracker").AsList();
+
+            return sessions;
+        }
+    }
+
     public static void EditRecord()
     {
         GetTable();
